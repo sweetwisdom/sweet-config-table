@@ -1,0 +1,28 @@
+{
+  "name": "sweet-config-table",
+  "version": "1.0.1",
+  "description": "一款基于element-ui,二次封装的表格组件，支持通过columns配置,支持原生所有属性",
+  "main": "/dist/main.common.js",
+  "browser": "/dist/main.umd.js",
+  "module": "dist/main.common.js",
+  "unpkg": "dist/main.umd.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "elementui",
+    "vue",
+    "vue2",
+    "表格组件二次封装",
+    "sweetwisdom"
+  ],
+  "files": [
+    "dist/*"
+  ],
+  "author": {
+    "name": "Mr.Zhang",
+    "email": "sweetwisdom@foxmail.com"
+  },
+  "homepage": "https://github.com/sweetwisdom",
+  "license": "MIT"
+}
