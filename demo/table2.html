@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+
+    <!-- <link rel="stylesheet" href="./main.css" /> -->
+
+    <script src="https://unpkg.com/vue@2.7/dist/vue.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css" />
+    <link rel="stylesheet" href="/dist/main.css" />
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="/dist/main.umd.min.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <h2>一款基于 element-ui,二次封装的表格组件，支持通过 columns 配置,支持原生所有属性</h2>
+      <div class="my-table">
+        <pro-table title="列表" :request="getList" :search="searchConfig" :columns="columns">
+          <template #operate="scope">
+            <el-button size="mini" type="primary">编辑</el-button>
+            <el-button size="mini" type="danger">删除</el-button>
+          </template>
+        </pro-table>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    const vue = {
+      data() {
+        return {
+          columns: [
+            { label: "序号", type: "index" },
+            { label: "名称", prop: "nickName", width: 180 },
+            { label: "邮箱", prop: "userEmail" },
+            {
+              label: "操作",
+              fixed: "right",
+              width: 180,
+              align: "center",
+              tdSlot: "operate",
+            },
+          ],
+          // 搜索配置
+          searchConfig: {
+            labelWidth: "90px",
+            inputWidth: "360px",
+            fields: [
+              {
+                type: "text",
+                label: "账户名称",
+                name: "nickName",
+                defaultValue: "abc",
+              },
+              {
+                type: "textarea",
+                label: "描述",
+                name: "description",
+              },
+              {
+                label: "状态",
+                name: "status",
+                type: "select",
+                defaultValue: 1,
+                options: [
+                  {
+                    name: "已发布",
+                    value: 1,
+                  },
+                  {
+                    name: "未发布",
+                    value: 0,
+                  },
+                ],
+              },
+              {
+                label: "性别",
+                name: "sex",
+                type: "radio",
+                options: [
+                  {
+                    name: "男",
+                    value: 1,
+                  },
+                  {
+                    name: "女",
+                    value: 0,
+                  },
+                ],
+              },
+              {
+                label: "城市",
+                name: "city",
+                type: "radio-button",
+                options: [
+                  {
+                    name: "北京",
+                    value: "bj",
+                  },
+                  {
+                    name: "上海",
+                    value: "sh",
+                  },
+                  {
+                    name: "广州",
+                    value: "gz",
+                  },
+                  {
+                    name: "深圳",
+                    value: "sz",
+                  },
+                ],
+              },
+              {
+                label: "爱好",
+                name: "hobby",
+                type: "checkbox",
+                defaultValue: ["吃饭"],
+                options: [
+                  {
+                    name: "吃饭",
+                    value: "吃饭",
+                  },
+                  {
+                    name: "睡觉",
+                    value: "睡觉",
+                  },
+                  {
+                    name: "打豆豆",
+                    value: "打豆豆",
+                  },
+                ],
+                transform: (val) => val.join(","),
+              },
+              {
+                label: "水果",
+                name: "fruit",
+                type: "checkbox-button",
+                options: [
+                  {
+                    name: "苹果",
+                    value: "苹果",
+                  },
+                  {
+                    name: "香蕉",
+                    value: "香蕉",
+                  },
+                  {
+                    name: "橘子",
+                    value: "橘子",
+                  },
+                  {
+                    name: "葡萄",
+                    value: "葡萄",
+                  },
+                ],
+                transform: (val) => val.join(","),
+              },
+              {
+                label: "日期",
+                name: "date",
+                type: "date",
+              },
+              {
+                label: "时间",
+                name: "datetime",
+                type: "datetime",
+                defaultValue: "2020-10-10 8:00:00",
+              },
+              {
+                label: "日期范围",
+                name: "daterange",
+                type: "daterange",
+                trueNames: ["startDate", "endDate"],
+                style: { width: "360px" },
+              },
+              {
+                label: "时间范围",
+                name: "datetimerange",
+                type: "datetimerange",
+                trueNames: ["startTime", "endTime"],
+                style: { width: "360px" },
+                defaultValue: ["2020-10-10 9:00:00", "2020-10-11 18:30:00"],
+              },
+              {
+                label: "数量",
+                name: "num",
+                type: "number",
+                min: 0,
+                max: 10,
+              },
+            ],
+          },
+        };
+      },
+      components: {},
+      computed: {},
+      props: {},
+      watch: {},
+      mounted() {},
+      created() {},
+
+      methods: {
+        async getList(params) {
+          console.log(params);
+          // params是从组件接收的，包含分页和搜索字段。
+          const arrs = new Array(20).fill(1);
+          const data = arrs.map((item, index) => {
+            return {
+              id: index,
+              nickName: "张三" + index,
+              userEmail: `xxxx${index}@qq.com`,
+            };
+          });
+
+          // 必须要返回一个对象，包含data数组和total总数
+          return {
+            data: data,
+            total: 100,
+          };
+        },
+      },
+    };
+    new Vue(vue).$mount("#app");
+  </script>
+  <style>
+    .my-table {
+      height: calc(100vh - 80px);
+    }
+  </style>
+</html>
